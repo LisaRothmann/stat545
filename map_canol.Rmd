@@ -1,0 +1,35 @@
+---
+title: "Untitled"
+author: "LAR"
+date: "01/06/2020"
+output: html_document
+---
+```{r}
+library(rnaturalearth)
+library(ggthemes)
+```
+
+```{r}
+zar <- ne_states(country = "south africa",
+                 returnclass = "sf")
+
+lat <- c(-34.140405, -33.145526, -34.031523, -33.914360, -33.988464, -32.750340)
+lon <- c(19.917869, 18.667861, 21.247872, 18.432517, 22.455931, 18.008221)
+town <- c("Riviersonderend", "Moorreesburg", "Riversdale", "Cape Town", "George", "St Helena Bay")
+
+df <- data.frame(lat, lon, town)
+```
+
+```{r}
+ggplot() +
+  geom_sf(data = zar)+
+  geom_point(aes(lon, lat), color = 'black', size = .1)+
+  geom_text(aes(lon, lat, label = town))+
+  ylim(-35, -32) +
+   xlim(17.5, 23)+
+  labs(
+    x= "Latitude",
+    y = "Longitude")+
+  theme_minimal()
+```
+
